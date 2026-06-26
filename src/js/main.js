@@ -5,13 +5,49 @@ import { state } from './state.js';
 import { render } from './ui.js';
 import { saveState } from './storage.js';
 
-// start session
-export function handleStart() {
-  startTimer(render, handleComplete);
+const btn = document.querySelector('#main-btn');
+
+console.log('BTN:', btn);
+
+// init
+render(state);
+updateButton();
+
+btn.addEventListener('click', () => {
+  if (state.session.isRunning) {
+    handlePause();
+  } else {
+    handleStartOrResume();
+  }
+});
+
+// start / resume
+function handleStartOrResume() {
+  // якщо таймер вже йде — нічого не робимо
+  if (state.session.isRunning) return;
+
+  resumeTimer(onTick, handleComplete, state);
+
+  updateButton();
 }
 
-// complete logic
-export function handleComplete() {
+// pause
+function handlePause() {
+  pauseTimer(state);
+
+  render(state);
+  saveState(state);
+  updateButton();
+}
+
+// tick callback
+function onTick() {
+  render(state);
+  saveState(state);
+}
+
+// complete
+function handleComplete() {
   const { session, day, settings } = state;
 
   if (session.mode === 'work') {
@@ -35,17 +71,10 @@ export function handleComplete() {
 
   render(state);
   saveState(state);
+  updateButton();
 }
 
-// pause
-export function handlePause() {
-  pauseTimer();
-  render(state);
-  saveState(state);
-}
-
-// resume
-export function handleResume() {
-  resumeTimer(render, handleComplete);
-  saveState(state);
+// button ui
+function updateButton() {
+  btn.textContent = state.session.isRunning ? 'Pause' : 'Start';
 }

@@ -1,54 +1,53 @@
-import { state } from './state.js';
-
 let intervalId = null;
 
-// start, stop, tick
-export function startTimer(onTick, onComplete) {
-  if (intervalId) return;
-
-  state.session.isRunning = true;
-
-  intervalId = setInterval(() => {
-    tick(onTick, onComplete);
-  }, 1000);
-}
-
-export function stopTimer(state) {
-  clearInterval(intervalId);
-  intervalId = null;
-
-  state.session.isRunning = false;
-}
-
-function tick(onTick, onComplete) {
+function tick(onTick, onComplete, state) {
   state.session.timeLeft = Math.max(0, state.session.timeLeft - 1);
 
   onTick(state);
 
   if (state.session.timeLeft <= 0) {
-    stopTimer();
+    stop(state);
     onComplete(state);
   }
 }
 
-state.session.timeLeft = Math.max(0, state.session.timeLeft - 1);
+// start
+export function startTimer(onTick, onComplete, state) {
+  stop(state);
 
-// pause, resume
-export function pauseTimer() {
+  state.session.isRunning = true;
+  state.session.lastPauseTime = null;
+
+  intervalId = setInterval(() => {
+    tick(onTick, onComplete, state);
+  }, 1000);
+}
+
+// pause
+export function pauseTimer(state) {
   if (!intervalId) return;
 
   clearInterval(intervalId);
   intervalId = null;
 
   state.session.isRunning = false;
+  state.session.lastPauseTime = Date.now();
 }
 
-export function resumeTimer(onTick, onComplete) {
-  if (intervalId) return;
+// resume
+export function resumeTimer(onTick, onComplete, state) {
+  stop(state);
 
   state.session.isRunning = true;
+  state.session.lastPauseTime = null;
 
   intervalId = setInterval(() => {
-    tick(onTick, onComplete);
+    tick(onTick, onComplete, state);
   }, 1000);
+}
+
+// stop
+function stop(state) {
+  clearInterval(intervalId);
+  intervalId = null;
 }

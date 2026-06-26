@@ -6,6 +6,7 @@ const defaultState = {
     timeLeft: 25 * 60,
     isRunning: false,
     cycle: 0,
+    lastPauseTime: null,
   },
 
   day: {
