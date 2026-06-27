@@ -30,10 +30,6 @@ body {
   cursor: pointer;
 }
 
-.hidden {
-  display: none;
-}
-
 #app {
   height: 100vh;
   display: flex;
