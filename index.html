@@ -7,7 +7,28 @@
     <title>pomodoro-interval</title>
   </head>
   <body>
-    <div id="app">
+    <button id="burger-btn">☰</button>
+
+    <div id="sidebar" class="hidden">
+      <h3>Статистика дня</h3>
+      <p>Ціль: <span id="stat-goal">—</span></p>
+      <p>Виконано: <span id="stat-completed">—</span></p>
+      <p>Залишилось: <span id="stat-left">—</span></p>
+    </div>
+
+    <div id="setup-screen">
+      <h2>Скільки Pomodoro сьогодні?</h2>
+
+      <div class="goal-buttons">
+        <button data-goal="4">4</button>
+        <button data-goal="5">5</button>
+        <button data-goal="6">6</button>
+        <button data-goal="7">7</button>
+        <button data-goal="8">8</button>
+      </div>
+    </div>
+
+    <div id="app" class="hidden">
       <h1 id="time">25:00</h1>
 
       <button id="main-btn">Start</button>

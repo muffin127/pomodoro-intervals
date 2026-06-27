@@ -1,53 +1,51 @@
 import '../css/style.css';
-
-import { startTimer, pauseTimer, resumeTimer } from './timer.js';
+import { resumeTimer, pauseTimer } from './timer.js';
 import { state } from './state.js';
 import { render } from './ui.js';
 import { saveState } from './storage.js';
+import { initSetup } from './setup.js';
+import { initSidebar, updateSidebar } from './sidebar.js';
 
 const btn = document.querySelector('#main-btn');
 
-console.log('BTN:', btn);
+function updateScreens() {
+  const setupScreen = document.getElementById('setup-screen');
+  const app = document.getElementById('app');
 
-// init
-render(state);
-updateButton();
-
-btn.addEventListener('click', () => {
-  if (state.session.isRunning) {
-    handlePause();
+  if (state.day.goal > 0) {
+    setupScreen.classList.add('hidden');
+    app.classList.remove('hidden');
   } else {
-    handleStartOrResume();
+    setupScreen.classList.remove('hidden');
+    app.classList.add('hidden');
   }
-});
+}
 
-// start / resume
-function handleStartOrResume() {
-  // якщо таймер вже йде — нічого не робимо
-  if (state.session.isRunning) return;
+function updateButton() {
+  btn.textContent = state.session.isRunning ? 'Pause' : 'Start';
+}
 
-  resumeTimer(onTick, handleComplete, state);
-
+function start() {
+  console.log('start called, isRunning:', state.session.isRunning);
+  resumeTimer(onTick, onComplete, state);
   updateButton();
 }
 
-// pause
-function handlePause() {
+function pause() {
+  console.log('pause called, isRunning:', state.session.isRunning);
   pauseTimer(state);
-
+  console.log('after pause, isRunning:', state.session.isRunning);
   render(state);
   saveState(state);
   updateButton();
 }
 
-// tick callback
 function onTick() {
   render(state);
   saveState(state);
 }
 
-// complete
-function handleComplete() {
+function onComplete() {
   const { session, day, settings } = state;
 
   if (session.mode === 'work') {
@@ -68,13 +66,25 @@ function handleComplete() {
   }
 
   session.isRunning = false;
-
   render(state);
   saveState(state);
   updateButton();
+  updateSidebar();
 }
 
-// button ui
-function updateButton() {
-  btn.textContent = state.session.isRunning ? 'Pause' : 'Start';
-}
+btn.addEventListener('click', () => {
+  state.session.isRunning ? pause() : start();
+});
+
+render(state);
+updateButton();
+updateScreens();
+initSidebar();
+updateSidebar();
+
+initSetup(() => {
+  updateScreens();
+  render(state);
+  updateButton();
+  updateSidebar();
+});
