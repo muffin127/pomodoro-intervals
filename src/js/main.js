@@ -5,6 +5,7 @@ import { render } from './ui.js';
 import { saveState } from './storage.js';
 import { initSetup } from './setup.js';
 import { initSidebar, updateSidebar } from './sidebar.js';
+import { playWorkEnd, playBreakEnd, playDayComplete } from './sounds.js';
 
 const btn = document.querySelector('#main-btn');
 
@@ -52,6 +53,12 @@ function onComplete() {
     day.completed++;
     session.cycle++;
 
+    if (day.completed >= day.goal) {
+      playDayComplete();
+    } else {
+      playWorkEnd();
+    }
+
     if (session.cycle >= settings.longBreakAfter) {
       session.mode = 'longBreak';
       session.timeLeft = settings.longBreakTime * 60;
@@ -61,6 +68,7 @@ function onComplete() {
       session.timeLeft = settings.breakTime * 60;
     }
   } else {
+    playBreakEnd();
     session.mode = 'work';
     session.timeLeft = settings.workTime * 60;
   }
