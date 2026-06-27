@@ -12,6 +12,7 @@ const btn = document.querySelector('#main-btn');
 function updateScreens() {
   const setupScreen = document.getElementById('setup-screen');
   const app = document.getElementById('app');
+  const burgerBtn = document.getElementById('burger-btn');
 
   if (state.day.goal > 0) {
     setupScreen.classList.add('hidden');
