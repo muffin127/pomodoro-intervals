@@ -17,9 +17,11 @@ function updateScreens() {
   if (state.day.goal > 0) {
     setupScreen.classList.add('hidden');
     app.classList.remove('hidden');
+    burgerBtn.classList.remove('hidden');
   } else {
     setupScreen.classList.remove('hidden');
     app.classList.add('hidden');
+    burgerBtn.classList.add('hidden');
   }
 }
 
