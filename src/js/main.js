@@ -6,6 +6,7 @@ import { saveState } from './storage.js';
 import { initSetup } from './setup.js';
 import { initSidebar, updateSidebar } from './sidebar.js';
 import { playWorkEnd, playBreakEnd, playDayComplete } from './sounds.js';
+import { showModal, hideModal, initModal } from './modal.js';
 
 const btn = document.querySelector('#main-btn');
 
@@ -99,3 +100,12 @@ initSetup(() => {
   updateButton();
   updateSidebar();
 });
+
+initModal(
+  () => {
+    console.log('yes');
+  },
+  () => {
+    console.log('no');
+  },
+);
