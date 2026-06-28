@@ -19,18 +19,24 @@
       <p>Ціль: <span id="stat-goal">—</span></p>
       <p>Виконано: <span id="stat-completed">—</span></p>
       <p>Залишилось: <span id="stat-left">—</span></p>
+      <button id="reset-btn">Скинути день</button>
     </div>
 
     <div id="setup-screen">
-      <h2>Інтервал сьогодні</h2>
-
-      <div class="goal-buttons">
-        <button data-goal="4">4</button>
-        <button data-goal="5">5</button>
-        <button data-goal="6">6</button>
-        <button data-goal="7">7</button>
-        <button data-goal="8">8</button>
+      <div class="goal-selector">
+        <button id="goal-prev">‹</button>
+        <div id="goal-display">
+          <span id="goal-number">4</span>
+        </div>
+        <button id="goal-next">›</button>
       </div>
+
+      <div id="goal-description">
+        <span id="goal-dot"></span>
+        <span id="goal-text"></span>
+      </div>
+
+      <button id="goal-confirm">Почати</button>
     </div>
 
     <div id="app" class="hidden">

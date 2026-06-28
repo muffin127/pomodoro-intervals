@@ -1,7 +1,7 @@
 const sounds = {
-  workEnd: new Audio('/focus-time/sounds/work-end.mp3'),
-  breakEnd: new Audio('/focus-time/sounds/break-end.mp3'),
-  dayComplete: new Audio('/focus-time/sounds/day-complete.mp3'),
+  workEnd: new Audio('/focus-time/sounds/work-end.ogg'),
+  breakEnd: new Audio('/focus-time/sounds/break-end.ogg'),
+  dayComplete: new Audio('/focus-time/sounds/day-complete.ogg'),
 };
 
 export function playWorkEnd() {

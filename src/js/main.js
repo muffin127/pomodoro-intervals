@@ -3,10 +3,10 @@ import { resumeTimer, pauseTimer } from './timer.js';
 import { state } from './state.js';
 import { render } from './ui.js';
 import { saveState } from './storage.js';
-import { initSetup } from './setup.js';
 import { initSidebar, updateSidebar } from './sidebar.js';
 import { playWorkEnd, playBreakEnd, playDayComplete } from './sounds.js';
 import { showModal, hideModal, initModal } from './modal.js';
+import { initGoalSelector } from './goalSelector.js';
 
 const btn = document.querySelector('#main-btn');
 
@@ -105,10 +105,26 @@ document.addEventListener('keydown', (e) => {
 render(state);
 updateButton();
 updateScreens();
-initSidebar();
+initSidebar(() => {
+  state.day.goal = 0;
+  state.day.completed = 0;
+  state.day.failed = 0;
+  state.session.isRunning = false;
+  state.session.mode = 'work';
+  state.session.timeLeft = state.settings.workTime * 60;
+  state.session.cycle = 0;
+  saveState(state);
+  render(state);
+  updateScreens();
+  updateSidebar();
+});
 updateSidebar();
 
-initSetup(() => {
+initGoalSelector((goal) => {
+  state.day.goal = goal;
+  state.day.completed = 0;
+  state.day.failed = 0;
+  saveState(state);
   updateScreens();
   render(state);
   updateButton();

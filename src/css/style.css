@@ -72,6 +72,26 @@ body {
   color: white;
 }
 
+#reset-btn {
+  margin-top: auto;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-family: 'Rubik', sans-serif;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+}
+
+#reset-btn:hover {
+  border-color: #e53935;
+  color: #e53935;
+}
+
 /* setup screen */
 #setup-screen {
   height: 100vh;
@@ -79,14 +99,103 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 32px;
 }
 
-.goal-buttons button {
-  padding: 10px 20px;
-  margin: 5px;
-  font-size: 18px;
+.goal-selector {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+#goal-prev,
+#goal-next {
+  font-size: 48px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
+  transition:
+    color 0.2s,
+    transform 0.1s;
+  user-select: none;
+  line-height: 1;
+}
+
+#goal-prev:hover,
+#goal-next:hover {
+  color: white;
+}
+
+#goal-prev:active,
+#goal-next:active {
+  transform: scale(0.85);
+}
+
+#goal-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 80px;
+}
+
+#goal-number {
+  font-family: 'Digital7', monospace;
+  font-size: 96px;
+  font-weight: 400;
+  color: white;
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.9),
+    0 0 20px rgba(255, 255, 255, 0.5);
+  transition:
+    color 0.3s,
+    text-shadow 0.3s;
+}
+
+#goal-label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+#goal-description {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+#goal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+#goal-text {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.3s;
+}
+
+#goal-confirm {
+  padding: 12px 40px;
+  font-size: 18px;
+  font-family: 'Rubik', sans-serif;
+  background: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+#goal-confirm:hover {
+  border-color: white;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 /* app */

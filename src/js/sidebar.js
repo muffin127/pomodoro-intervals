@@ -1,12 +1,17 @@
 import { state } from './state.js';
 
-export function initSidebar() {
+export function initSidebar(onReset) {
   const btn = document.getElementById('burger-btn');
   const sidebar = document.getElementById('sidebar');
 
   btn.addEventListener('click', () => {
     sidebar.classList.toggle('open');
     updateSidebar();
+  });
+
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    onReset();
   });
 }
 
