@@ -109,12 +109,12 @@ initSetup(() => {
 
 initModal(
   () => {
-    state.session.mode = 'longBreak';
-    state.session.timeLeft = state.settings.longBreakTime * 60;
-    render(state);
-    saveState(state);
-    start();
-  },
+  state.session.mode = 'longBreak';
+  state.session.timeLeft = state.settings.longBreakTime * 60;
+  render(state);
+  saveState(state);
+  start();
+},
   () => {
     start();
   },

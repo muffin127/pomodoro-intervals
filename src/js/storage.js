@@ -1,7 +1,11 @@
 const KEY = 'pomodoro-state';
 
 export function saveState(state) {
-  localStorage.setItem(KEY, JSON.stringify(state));
+  const data = {
+    ...state,
+    savedDate: new Date().toDateString(),
+  };
+  localStorage.setItem(KEY, JSON.stringify(data));
 }
 
 export function loadState() {
@@ -11,6 +15,9 @@ export function loadState() {
   try {
     const parsed = JSON.parse(data);
     if (!parsed?.session || !parsed?.day) return null;
+
+    if (parsed.savedDate !== new Date().toDateString()) return null;
+
     return parsed;
   } catch {
     return null;
