@@ -5,11 +5,16 @@
     <link rel="icon" type="image/svg+xml" href="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Focus Time</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Orbitron:wght@700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <button id="burger-btn" class="hidden">☰</button>
 
-    <div id="sidebar" class="hidden">
+    <div id="sidebar">
       <h3>Статистика дня</h3>
       <p>Ціль: <span id="stat-goal">—</span></p>
       <p>Виконано: <span id="stat-completed">—</span></p>
@@ -29,9 +34,12 @@
     </div>
 
     <div id="app" class="hidden">
-      <h1 id="time">25:00</h1>
-
-      <button id="main-btn">Start</button>
+      <div id="timer-display">
+        <div id="timer-wrapper">
+          <h1 id="time-shadow">88:88</h1>
+          <h1 id="time">25:00</h1>
+        </div>
+      </div>
     </div>
 
     <div id="long-break-modal" class="hidden">

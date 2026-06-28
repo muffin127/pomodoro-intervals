@@ -26,25 +26,21 @@ function updateScreens() {
   }
 }
 
-function updateButton() {
-  btn.textContent = state.session.isRunning ? 'Pause' : 'Start';
-}
+function updateButton() {}
 
 function start() {
-  console.log('start called, isRunning:', state.session.isRunning);
+  document.getElementById('timer-display').classList.remove('paused');
   resumeTimer(onTick, onComplete, state);
   updateButton();
 }
 
 function pause() {
-  console.log('pause called, isRunning:', state.session.isRunning);
+  document.getElementById('timer-display').classList.add('paused');
   pauseTimer(state);
-  console.log('after pause, isRunning:', state.session.isRunning);
   render(state);
   saveState(state);
   updateButton();
 }
-
 function onTick() {
   render(state);
   saveState(state);
@@ -90,10 +86,22 @@ function onComplete() {
   updateSidebar();
 }
 
-btn.addEventListener('click', () => {
+document.getElementById('timer-display').addEventListener('click', () => {
   state.session.isRunning ? pause() : start();
 });
 
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space' || e.code === 'Enter') {
+    e.preventDefault();
+    if (state.day.goal === 0) return;
+
+    const display = document.getElementById('timer-display');
+    display.classList.add('pressing');
+    setTimeout(() => display.classList.remove('pressing'), 150);
+
+    state.session.isRunning ? pause() : start();
+  }
+});
 render(state);
 updateButton();
 updateScreens();
@@ -109,12 +117,12 @@ initSetup(() => {
 
 initModal(
   () => {
-  state.session.mode = 'longBreak';
-  state.session.timeLeft = state.settings.longBreakTime * 60;
-  render(state);
-  saveState(state);
-  start();
-},
+    state.session.mode = 'longBreak';
+    state.session.timeLeft = state.settings.longBreakTime * 60;
+    render(state);
+    saveState(state);
+    start();
+  },
   () => {
     start();
   },

@@ -5,7 +5,7 @@ export function initSidebar() {
   const sidebar = document.getElementById('sidebar');
 
   btn.addEventListener('click', () => {
-    sidebar.classList.toggle('hidden');
+    sidebar.classList.toggle('open');
     updateSidebar();
   });
 }
